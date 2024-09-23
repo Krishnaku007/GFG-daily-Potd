@@ -1,1 +1,23 @@
+class Solution {
+  public:
+    vector<int> findTwoElement(vector<int>& arr) {
+        // code here
+        int n = arr.size();
+        long long sum_n = (long long)n * (n + 1) / 2;
+        long long sum_sq_n = (long long)n * (n + 1) * (2 * n + 1) / 6;
+        long long sum_arr = 0, sum_sq_arr = 0;
+        for (int i = 0; i < n; i++) {
+            sum_arr += arr[i];
+            sum_sq_arr += (long long)arr[i] * arr[i];
+        }
+        long long sum_diff = sum_arr - sum_n; 
+        long long sum_sq_diff = sum_sq_arr - sum_sq_n; 
 
+        long long sum_plus = sum_sq_diff / sum_diff; 
+
+        long long B = (sum_plus + sum_diff) / 2;
+        long long A = B - sum_diff;
+
+        return {(int)B, (int)A};
+    }
+};
