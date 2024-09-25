@@ -1,1 +1,40 @@
+class Solution {
+  public:
+   Node* reverseList(Node* head) {
+        Node* prev = NULL;
+        Node* current = head;
+        while (current != NULL) {
+            Node* nextNode = current->next;
+            current->next = prev;
+            prev = current;
+            current = nextNode;
+        }
+        return prev;
+    }
 
+    // Function to check whether the list is palindrome.
+    bool isPalindrome(Node *head) {
+        // Your code here
+         if (!head || !head->next) {
+            return true;
+        }
+        Node* slow = head;
+        Node* fast = head;
+        while (fast != NULL && fast->next != NULL) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        Node* secondHalfStart = reverseList(slow);
+        Node* firstHalfStart = head;
+        Node* temp = secondHalfStart; 
+        while (temp != NULL) {
+            if (firstHalfStart->data != temp->data) {
+                return false;
+            }
+            firstHalfStart = firstHalfStart->next;
+            temp = temp->next;
+        }
+        reverseList(secondHalfStart);
+        return true;
+    }
+};
