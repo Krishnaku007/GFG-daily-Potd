@@ -1,0 +1,40 @@
+class Solution {
+  public:
+   void inorderTraversal(Node* root, vector<int> &result) {
+        if (root == NULL) return;
+        inorderTraversal(root->left, result);
+        result.push_back(root->data);
+        inorderTraversal(root->right, result);
+    }
+    
+     vector<int> mergeSortedArrays(const vector<int> &arr1, const vector<int> &arr2) {
+        int n1 = arr1.size();
+        int n2 = arr2.size();
+        vector<int> mergedArray;
+        
+        int i = 0, j = 0;
+        while (i < n1 && j < n2) {
+            if (arr1[i] < arr2[j]) {
+                mergedArray.push_back(arr1[i++]);
+            } else {
+                mergedArray.push_back(arr2[j++]);
+            }
+        }
+        
+        while (i < n1) {
+            mergedArray.push_back(arr1[i++]);
+        }
+        while (j < n2) {
+            mergedArray.push_back(arr2[j++]);
+        }
+        
+        return mergedArray;
+    }
+    vector<int> merge(Node *root1, Node *root2) {
+        // Your code here
+         vector<int> inorder1, inorder2;
+        inorderTraversal(root1, inorder1);
+        inorderTraversal(root2, inorder2);
+        return mergeSortedArrays(inorder1, inorder2);
+    }
+};
